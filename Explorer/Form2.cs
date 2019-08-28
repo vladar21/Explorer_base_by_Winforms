@@ -22,18 +22,40 @@ namespace Explorer
         int indexsolid2;
         bool searchfirstsolid = true;
         bool searchsecondsolid = true;
+        DriveInfo[] expdrives; // доступные диски
+        int ed = 0;
 
         public Form2()
         {
             InitializeComponent();
             indexsolid2 = indexsolid1;
 
-            // определяем превые два жестких диска системы
+            
+
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            StartGetDrives();
+            // заполняем выпадающий список с доступными дисками
+            foreach(DriveInfo dr in expdrives)
+            {
+                toolStripComboBox1.Items.AddRange(new object[] { dr.ToString() });
+            }
+        }
+
+        private void StartGetDrives()
+        {
+            // определяем первые два жестких диска системы
             DriveInfo[] drives = DriveInfo.GetDrives();
             foreach (DriveInfo drive in drives)
             {
                 if (drive.IsReady && drive.DriveType == DriveType.Fixed)
-                {                   
+                {
+                    Array.Resize(ref expdrives, ed + 1);
+                    expdrives[ed] = drive; // запоняем массив доступных дисков
+                    ed++;
+
                     if (searchfirstsolid)
                     {
                         indexsolid1 = lengthDrivers;
@@ -44,12 +66,12 @@ namespace Explorer
                     {
                         indexsolid2 = lengthDrivers;
                     }
-                    
+
                 }
                 lengthDrivers++;
-            }            
+            }
 
-            if (lengthDrivers > 0) 
+            if (lengthDrivers > 0)
             {
                 leftPath = drives[indexsolid1].ToString();
                 rightPath = drives[indexsolid2].ToString();
@@ -81,9 +103,8 @@ namespace Explorer
             {
                 MessageBox.Show("Жесткие диски в системе не обнаружены.");
             }
+        }
 
-        }            
-        
         private void ShowListView(string path, ListView listview, bool largeicon)
         {
             listview.Items.Clear();
@@ -196,6 +217,22 @@ namespace Explorer
                     }
                 }
             }
+        }
+
+        // события при выборе диска в левом окне
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            leftPath = toolStripComboBox1.SelectedItem.ToString();
+            toolStripPathNameLeft.Text = leftPath;
+
+            TreeNode nodeLeft = new TreeNode(leftPath);
+            nodeLeft.Tag = expdrives[toolStripComboBox1.SelectedIndex];
+            nodeLeft.Expand();
+            nodeLeft.Nodes.Add("...");
+            treeLeft.Nodes.Add(nodeLeft);          
+
+            // запускаем событие выбора вида проводника (таблица, дерево, список и т.д.)
+            toolStripComboBoxLeft_SelectedIndexChanged(null, null);
         }
 
         private void toolStripComboBoxLeft_SelectedIndexChanged(object sender, EventArgs e)
@@ -349,6 +386,9 @@ namespace Explorer
             return extension;
         }
 
+        
+
+        
     }
  
 }
