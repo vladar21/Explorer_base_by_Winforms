@@ -53,6 +53,7 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -196,6 +197,7 @@
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripComboBoxRight,
             this.toolStripLabel2,
+            this.toolStripComboBox2,
             this.toolStripPathNameRight});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
@@ -226,7 +228,7 @@
             // toolStripPathNameRight
             // 
             this.toolStripPathNameRight.Name = "toolStripPathNameRight";
-            this.toolStripPathNameRight.Size = new System.Drawing.Size(100, 25);
+            this.toolStripPathNameRight.Size = new System.Drawing.Size(150, 25);
             // 
             // treeRight
             // 
@@ -277,6 +279,14 @@
             // 
             this.columnHeader9.Text = "Size";
             // 
+            // toolStripComboBox2
+            // 
+            this.toolStripComboBox2.AutoSize = false;
+            this.toolStripComboBox2.DropDownWidth = 21;
+            this.toolStripComboBox2.Name = "toolStripComboBox2";
+            this.toolStripComboBox2.Size = new System.Drawing.Size(10, 21);
+            this.toolStripComboBox2.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox2_SelectedIndexChanged);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -326,5 +336,6 @@
         private System.Windows.Forms.ToolStripTextBox toolStripPathNameRight;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
     }
 }

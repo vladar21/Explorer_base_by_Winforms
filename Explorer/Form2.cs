@@ -30,8 +30,6 @@ namespace Explorer
             InitializeComponent();
             indexsolid2 = indexsolid1;
 
-            
-
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -41,6 +39,7 @@ namespace Explorer
             foreach(DriveInfo dr in expdrives)
             {
                 toolStripComboBox1.Items.AddRange(new object[] { dr.ToString() });
+                toolStripComboBox2.Items.AddRange(new object[] { dr.ToString() });
             }
         }
 
@@ -74,7 +73,9 @@ namespace Explorer
             if (lengthDrivers > 0)
             {
                 leftPath = drives[indexsolid1].ToString();
+                toolStripPathNameLeft.Text = leftPath;
                 rightPath = drives[indexsolid2].ToString();
+                toolStripPathNameRight.Text = rightPath;
 
                 TreeNode nodeLeft = new TreeNode(leftPath);
                 nodeLeft.Tag = drives[indexsolid1];
@@ -234,6 +235,21 @@ namespace Explorer
             // запускаем событие выбора вида проводника (таблица, дерево, список и т.д.)
             toolStripComboBoxLeft_SelectedIndexChanged(null, null);
         }
+        
+        private void toolStripComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            rightPath = toolStripComboBox2.SelectedItem.ToString();
+            toolStripPathNameRight.Text = rightPath;
+
+            TreeNode nodeRight = new TreeNode(rightPath);
+            nodeRight.Tag = expdrives[toolStripComboBox2.SelectedIndex];
+            nodeRight.Expand();
+            nodeRight.Nodes.Add("...");
+            treeRight.Nodes.Add(nodeRight);
+
+            // запускаем событие выбора вида проводника (таблица, дерево, список и т.д.)
+            toolStripComboBoxRight_SelectedIndexChanged(null, null);
+        }
 
         private void toolStripComboBoxLeft_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -386,9 +402,6 @@ namespace Explorer
             return extension;
         }
 
-        
-
-        
     }
  
 }
